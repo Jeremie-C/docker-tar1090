@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+set -e
+# Remove old tar1090
+rm -rf /usr/local/share/tar1090 > /dev/null 2>&1 || true
+# Recreate directory
+mkdir -p /usr/local/share/tar1090
+# Copy files into install directory
+cd /srv/tar1090 || exit 1
+cp -R html /usr/local/share/tar1090
+cp tar1090.sh /usr/local/share/tar1090
+cp default /usr/local/share/tar1090
+cp ./88-tar1090.conf /usr/local/share/tar1090
+cp LICENSE /usr/local/share/tar1090
+cp README.md /usr/local/share/tar1090
+# Copy database
+cp -R /srv/tar1090-db/db /usr/local/share/tar1090/html
