@@ -16,7 +16,7 @@ sed -i.original \
   /usr/local/share/tar1090/88-tar1090.conf
 
 # Link to lighttpd configuration
-ln -snf /usr/local/share/tar1090/88-tar1090.conf /etc/lighttpd/conf-enable/88-tar1090.conf
+ln -snf /usr/local/share/tar1090/88-tar1090.conf /etc/lighttpd/conf-enabled/88-tar1090.conf 
 
 # Modify tar1090 settings
 sed -i.original \
