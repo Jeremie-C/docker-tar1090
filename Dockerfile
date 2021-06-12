@@ -1,7 +1,9 @@
 FROM debian:buster-slim
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-  BEAST_PORT=30005
+  BEAST_PORT=30005 \
+  UPDATE_TAR="true" \
+  UPDATE_TIMELAPSE="true"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -29,13 +31,7 @@ RUN apt-get update && apt-get upgrade -y && \
   chmod +x /healthcheck.sh
 
 RUN git clone --depth 1 https://github.com/wiedehopf/tar1090-db /srv/tar1090-db && \
-  pushd /srv/tar1090-db || exit 1 && \
-  DB_VERSION=$(git rev-parse --short HEAD) && \
-  popd && \
   git clone --single-branch -b master --depth 1 https://github.com/wiedehopf/tar1090 /srv/tar1090 && \
-  pushd /srv/tar1090 && \
-  TAR_VERSION=$(git rev-parse --short HEAD) && \
-  popd && \
   git clone -b master https://github.com/wiedehopf/timelapse1090.git /srv/timelapse1090 && \
   mkdir -p /var/timelapse1090 && \
   git clone --branch=dev --single-branch --depth=1 https://github.com/wiedehopf/readsb.git /src/readsb && \

@@ -30,8 +30,8 @@ mv "$html_path/layers.js" "$html_path/layers_$TAR_VERSION.js"
 mv "$html_path/markers.js" "$html_path/markers_$TAR_VERSION.js"
 mv "$html_path/planeObject.js" "$html_path/planeObject_$TAR_VERSION.js"
 mv "$html_path/registrations.js" "$html_path/registrations_$TAR_VERSION.js"
-mv "$html_path/script.js" "script_$TAR_VERSION.js"
-mv "$html_path/style.css" "style_$TAR_VERSION.css"
+mv "$html_path/script.js" "$html_path/script_$TAR_VERSION.js"
+mv "$html_path/style.css" "$html_path/style_$TAR_VERSION.css"
 
 # Update in index
 sed -i \

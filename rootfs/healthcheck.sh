@@ -28,6 +28,15 @@ else
   EXITCODE=1
 fi
 
+LIGHTY_DEATHS=$(s6-svdt /run/s6/services/lighttpd | grep -cv "exitcode 0")
+if [ "$LIGHTY_DEATHS" -ge 1 ]; then
+    echo "lighttpd deaths: $LIGHTY_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "lighttpd deaths: $LIGHTY_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/lighttpd
+
 READSB_DEATHS=$(s6-svdt /run/s6/services/readsb | grep -cv "exitcode 0")
 if [ "$READSB_DEATHS" -ge 1 ]; then
     echo "readsb deaths: $READSB_DEATHS. UNHEALTHY"
@@ -36,5 +45,23 @@ else
     echo "readsb deaths: $READSB_DEATHS. HEALTHY"
 fi
 s6-svdt-clear /run/s6/services/readsb
+
+TAR_DEATHS=$(s6-svdt /run/s6/services/tar1090 | grep -cv "exitcode 0")
+if [ "$TAR_DEATHS" -ge 1 ]; then
+    echo "tar1090 deaths: $TAR_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "tar1090 deaths: $TAR_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/tar1090
+
+TIME_DEATHS=$(s6-svdt /run/s6/services/timelapse1090 | grep -cv "exitcode 0")
+if [ "$TIME_DEATHS" -ge 1 ]; then
+    echo "timelapse1090 deaths: $TIME_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "timelapse1090 deaths: $TIME_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/timelapse1090
 
 exit $EXITCODE
