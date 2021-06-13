@@ -1,0 +1,35 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+mkdir -p /run/readsb
+
+# Build the readsb command line based on options
+READSB_BIN="/usr/bin/readsb"
+
+READSB_CMD=(--net-only)
+READSB_CMD+=(--quiet)
+
+if [ -n "${LAT}" ]; then
+    READSB_CMD+=(--lat "${LAT}")
+fi
+
+if [ -n "${LONG}" ]; then
+    READSB_CMD+=(--lon "${LONG}")
+fi
+
+if [ -n "${BEAST_HOST}" ]; then
+    READSB_CMD+=("--net-connector=${BEAST_HOST},${BEAST_PORT},beast_in")
+fi
+
+READSB_CMD+=(--write-json=/run/readsb)
+READSB_CMD+=(--heatmap-dir /var/globe_history)
+READSB_CMD+=(--heatmap 13)
+READSB_CMD+=(--json-trace-interval 15)
+READSB_CMD+=(--json-reliable 1)
+READSB_CMD+=("--max-range=$READSB_MAX_RANGE")
+READSB_CMD+=("--net-bi-port=30004,30104")
+READSB_CMD+=(--net-json-port=30047)
+READSB_CMD+=(--forward-mlat)
+
+# shellcheck disable=SC2086
+"${READSB_BIN}" "${READSB_CMD[@]}" 2>&1 | mawk -W Interactive '{print "[readsb] " $0}'

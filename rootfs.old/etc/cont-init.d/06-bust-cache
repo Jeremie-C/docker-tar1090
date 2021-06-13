@@ -33,20 +33,6 @@ mv "$html_path/registrations.js" "$html_path/registrations_$TAR_VERSION.js"
 mv "$html_path/script.js" "$html_path/script_$TAR_VERSION.js"
 mv "$html_path/style.css" "$html_path/style_$TAR_VERSION.css"
 
-# GZIP Files
-gzip -k -9 "$html_path/dbloader_$TAR_VERSION.js"
-gzip -k -9 "$html_path/defaults_$TAR_VERSION.js"
-gzip -k -9 "$html_path/early_$TAR_VERSION.js"
-gzip -k -9 "$html_path/flags_$TAR_VERSION.js"
-gzip -k -9 "$html_path/formatter_$TAR_VERSION.js"
-gzip -k -9 "$html_path/layers_$TAR_VERSION.js"
-gzip -k -9 "$html_path/markers_$TAR_VERSION.js"
-gzip -k -9 "$html_path/planeObject_$TAR_VERSION.js"
-gzip -k -9 "$html_path/registrations_$TAR_VERSION.js"
-gzip -k -9 "$html_path/script_$TAR_VERSION.js"
-gzip -k -9 "$html_path/style_$TAR_VERSION.css"
-gzip -k -9 "$html_path/./libs/*.js"
-
 # Update in index
 sed -i \
     -e "s/dbloader.js/dbloader_$TAR_VERSION.js/" \
