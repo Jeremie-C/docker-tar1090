@@ -31,7 +31,7 @@ if [ -z "${LON}" ]; then
 fi
 
 if [ $EXITCODE == 0 ]; then
-  echo -e "${CYAN}INFO: Connect to $BEAST_HOST:$BEAST_PORT${NOCOLOR}"
+  echo -e "${CYAN}INFO: Connect to $BEAST_HOST${NOCOLOR}"
 fi
 
 exit $EXITCODE

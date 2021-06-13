@@ -10,7 +10,7 @@ fi
 # Print tar1090 database version
 DB_VERSION=$(git rev-parse --short HEAD)
 echo "tar1090 database version: ${DB_VERSION}"
-printf "$DB_VERSION" > /var/run/s6/container_environment/DB_VERSION
+printf "%s" "$DB_VERSION" > /var/run/s6/container_environment/DB_VERSION
 
 cd /srv/tar1090 || exit 1
 if [ "${UPDATE_TAR}" = "true" ]; then 
@@ -21,7 +21,7 @@ fi
 # Print tar1090 version
 TAR_VERSION=$(git rev-parse --short HEAD)
 echo "tar1090 version: ${TAR_VERSION}"
-printf "$TAR_VERSION" > /var/run/s6/container_environment/TAR_VERSION
+printf "%s" "$TAR_VERSION" > /var/run/s6/container_environment/TAR_VERSION
 
 cd /srv/timelapse1090 || exit 1
 if [ "${UPDATE_TIMELAPSE}" = "true" ]; then 
