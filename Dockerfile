@@ -31,25 +31,25 @@ RUN apt-get update && apt-get upgrade -y && \
   # Healthcheck
   chmod +x /healthcheck.sh
 
-  RUN git clone --depth 1 https://github.com/wiedehopf/tar1090-db /srv/tar1090-db && \
-    git clone --single-branch -b master --depth 1 https://github.com/wiedehopf/tar1090 /srv/tar1090 && \
-    git clone -b master https://github.com/wiedehopf/timelapse1090.git /srv/timelapse1090 && \
-    mkdir -p /var/timelapse1090 && \
-    git clone --branch=dev --single-branch --depth=1 https://github.com/wiedehopf/readsb.git /src/readsb && \
-    pushd /src/readsb && \
-    make RTLSDR=no BLADERF=no PLUTOSDR=no HAVE_BIASTEE=no OPTIMIZE="-O3" && \
-    cp -v /src/readsb/readsb /usr/bin/readsb && \
-    cp -v /src/readsb/viewadsb /usr/bin/viewadsb && \
-    mkdir -p /var/globe_history && \
-    popd && \
-    apt-get remove -y build-essential libncurses-dev zlib1g-dev && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN git clone --depth 1 https://github.com/wiedehopf/tar1090-db /srv/tar1090-db && \
+  git clone --single-branch -b master --depth 1 https://github.com/wiedehopf/tar1090 /srv/tar1090 && \
+  git clone -b master https://github.com/wiedehopf/timelapse1090.git /srv/timelapse1090 && \
+  mkdir -p /var/timelapse1090 && \
+  git clone --branch=dev --single-branch --depth=1 https://github.com/wiedehopf/readsb.git /src/readsb && \
+  pushd /src/readsb && \
+  make RTLSDR=no BLADERF=no PLUTOSDR=no HAVE_BIASTEE=no OPTIMIZE="-O3" && \
+  cp -v /src/readsb/readsb /usr/bin/readsb && \
+  cp -v /src/readsb/viewadsb /usr/bin/viewadsb && \
+  mkdir -p /var/globe_history && \
+  popd && \
+  apt-get remove -y build-essential libncurses-dev zlib1g-dev && \
+  apt-get autoremove -y && \
+  rm -rf /var/lib/apt/lists/*
 
-  ENTRYPOINT [ "/init" ]
+ENTRYPOINT [ "/init" ]
 
-  EXPOSE 80/tcp
+EXPOSE 80/tcp
 
-  HEALTHCHECK --start-period=120s --interval=300s CMD /healthcheck.sh
+HEALTHCHECK --start-period=120s --interval=300s CMD /healthcheck.sh
 
-  LABEL maintainer="Jeremie-C <Jeremie-C@users.noreply.github.com>"
+LABEL maintainer="Jeremie-C <Jeremie-C@users.noreply.github.com>"
