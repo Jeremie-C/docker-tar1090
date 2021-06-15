@@ -7,6 +7,10 @@ sleep 5
 srcdir=/run/readsb
 service=readsb
 
+export INTERVAL="${TAR_INVERVAL}"
+export HISTORY_SIZE="${TAR_HISTORY_SIZE:-450}"
+export CHUNK_SIZE="${TAR_CHUNK_SIZE:-60}"
+
 /usr/local/share/tar1090/tar1090.sh \
   "/run/$service" \
   "$srcdir" \

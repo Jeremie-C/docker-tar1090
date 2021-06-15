@@ -5,3 +5,8 @@
 sed -i.original \
   -e 's/skyview978/skyaware978/' \
   /usr/local/share/tar1090/default
+
+if [ -z "${TAR_INTERVAL}" ]; then
+  echo "5" > /var/run/s6/container_environment/TAR_INTERVAL
+fi
+

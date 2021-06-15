@@ -33,7 +33,7 @@ fi
 TIME_VERSION=$(git rev-parse --short HEAD)
 echo "timelapse1090 version: ${TIME_VERSION}"
 
-cd /srv/graph1090 || exit 1
+cd /srv/graphs1090 || exit 1
 if [ "${UPDATE_GRAPH}" = "true" ]; then 
 	# Attempt to update graph1090
 	git fetch origin master > /dev/null 2>&1 || exit 0

@@ -46,7 +46,8 @@ RUN  apt-get update && \
   apt-get autoremove -y && \
   rm -rf  /src /var/lib/apt/lists/*  && \
   mkdir -p /var/timelapse1090 && \
-  mkdir -p /var/globe_history
+  mkdir -p /var/globe_history && \
+  mkdir -p /var/lib/collectd/rrd/localhost/dump1090-localhost/
 
 ENTRYPOINT [ "/init" ]
 
