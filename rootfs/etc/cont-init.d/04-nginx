@@ -11,7 +11,7 @@ sed -i.original \
   -e "s?SOURCE_DIR?$srcdir?g" \
   -e "s?SERVICE?$service?g" \
   -e "s?/INSTANCE/?/?g" \
-  -e "s?/INSTANCE??g" \
+  -e "s?/INSTANCE?/?g" \
   -e "s?HTMLPATH?$html_path?g" \
   /usr/local/share/tar1090/nginx.conf
 
@@ -60,7 +60,7 @@ gzip -k -9 "$html_path/planeObject_$TAR_VERSION.js"
 gzip -k -9 "$html_path/registrations_$TAR_VERSION.js"
 gzip -k -9 "$html_path/script_$TAR_VERSION.js"
 gzip -k -9 "$html_path/style_$TAR_VERSION.css"
-gzip -k -9 "$html_path/./libs/*.js"
+gzip -k -9 "$html_path/libs/*.js"
 
 # Update in index
 sed -i \

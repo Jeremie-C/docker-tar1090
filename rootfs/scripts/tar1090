@@ -12,12 +12,14 @@ server {
   # TimelapseData
   location /timelapse/data {
     alias /run/timelapse1090;
+
     location ~ chunk_.*\.gz$ {
       add_header Access-Control-Allow-Origin "*";
       add_header Cache-Control "must-revalidate";
       add_header Content-Type "application/json";
       add_header Content-Encoding "gzip";
     }
+
     location ~ .*\.json$ {
       add_header Access-Control-Allow-Origin "*";
       add_header Cache-Control "public, max-age=0";

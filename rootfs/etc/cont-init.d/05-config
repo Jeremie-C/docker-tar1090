@@ -5,7 +5,3 @@
 sed -i.original \
   -e 's/skyview978/skyaware978/' \
   /usr/local/share/tar1090/default
-
-# Send Default conf
-ln -snf /usr/local/share/tar1090/default /etc/default/tar1090
-ln -snf /usr/local/share/timelapse1090/default /etc/default/timelapse1090

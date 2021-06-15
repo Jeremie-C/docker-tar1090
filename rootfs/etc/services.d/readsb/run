@@ -13,8 +13,8 @@ if [ -n "${LAT}" ]; then
     READSB_CMD+=(--lat "${LAT}")
 fi
 
-if [ -n "${LONG}" ]; then
-    READSB_CMD+=(--lon "${LONG}")
+if [ -n "${LON}" ]; then
+    READSB_CMD+=(--lon "${LON}")
 fi
 
 if [ -n "${BEAST_HOST}" ]; then

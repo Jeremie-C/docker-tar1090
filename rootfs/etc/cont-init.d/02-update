@@ -24,11 +24,21 @@ echo "tar1090 version: ${TAR_VERSION}"
 printf "%s" "$TAR_VERSION" > /var/run/s6/container_environment/TAR_VERSION
 
 cd /srv/timelapse1090 || exit 1
-if [ "${UPDATE_TIMELAPSE}" = "true" ]; then 
-	# Attempt to update tar1090
+if [ "${UPDATE_TIME}" = "true" ]; then 
+	# Attempt to update timelapse1090
 	git fetch origin master > /dev/null 2>&1 || exit 0
 	git reset --hard origin/master > /dev/null 2>&1 || exit 0
 fi
-# Print tar1090 database version
-TIMELAPSE_VERSION=$(git rev-parse --short HEAD)
-echo "timelapse1090 version: ${TIMELAPSE_VERSION}"
+# Print timelapse1090 database version
+TIME_VERSION=$(git rev-parse --short HEAD)
+echo "timelapse1090 version: ${TIME_VERSION}"
+
+cd /srv/graph1090 || exit 1
+if [ "${UPDATE_GRAPH}" = "true" ]; then 
+	# Attempt to update graph1090
+	git fetch origin master > /dev/null 2>&1 || exit 0
+	git reset --hard origin/master > /dev/null 2>&1 || exit 0
+fi
+# Print graph1090 database version
+GRAPH_VERSION=$(git rev-parse --short HEAD)
+echo "graph1090 version: ${GRAPH_VERSION}"
