@@ -21,6 +21,7 @@ sed -i '/location \/data\/ {/a \ \ access_log off;' \
 # Bust Cache & GZIP
 # Rename database
 mv "$html_path/db" "/usr/local/share/tar1090/html/db-${DB_VERSION}"
+gzip -k -9 "$html_path/db-${DB_VERSION}/"*.js 
 
 # Update with renamed database path
 sed -i \
@@ -60,7 +61,7 @@ gzip -k -9 "$html_path/planeObject_$TAR_VERSION.js"
 gzip -k -9 "$html_path/registrations_$TAR_VERSION.js"
 gzip -k -9 "$html_path/script_$TAR_VERSION.js"
 gzip -k -9 "$html_path/style_$TAR_VERSION.css"
-gzip -k -9 "$html_path/libs/*.js"
+gzip -k -9 "$html_path/libs/"*.js
 
 # Update in index
 sed -i \

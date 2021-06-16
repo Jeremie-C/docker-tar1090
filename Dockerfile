@@ -14,7 +14,7 @@ RUN apt-get update && apt-get upgrade -y && \
   apt-get install -y --no-install-recommends \
   # Required always
   net-tools jq bc rrdtool collectd-core \
-  ca-certificates wget git libpython3.7 \
+  ca-certificates wget git libpython3.7-minimal \
   nginx-light p7zip-full && \
   # S6 OVERLAY
   chmod +x /scripts/s6-overlay.sh && \

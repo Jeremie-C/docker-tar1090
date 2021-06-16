@@ -1,12 +1,24 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-# Modify tar1090 settings
-sed -i.original \
-  -e 's/skyview978/skyaware978/' \
-  /usr/local/share/tar1090/default
+# Graphs1090
+sed -i \
+  -e 's/XFF.*/XFF 0.8/' /usr/local/share/graphs1090/collectd.conf
+ln -snf /usr/local/share/graphs1090/collectd.conf /etc/collectd/collectd.conf
 
-if [ -z "${TAR_INTERVAL}" ]; then
-  echo "5" > /var/run/s6/container_environment/TAR_INTERVAL
-fi
+sed -i \
+  -e "s/__cache_version__/$(date +%s | tail -c5)/g" /usr/local/share/graphs1090/html/index.html
 
+# TAR1090 ENV VARS
+printf "${TAR_INTERVAL:=8}" > /var/run/s6/container_environment/INTERVAL
+printf "${TAR_HISTORY_SIZE:=450}" > /var/run/s6/container_environment/HISTORY_SIZE
+printf "${TAR_CHUNK_SIZE:=20}" > /var/run/s6/container_environment/CHUNK_SIZE
+printf "${TAR_GZIP_LVL:=3}" > /var/run/s6/container_environment/GZIP_LVL
+
+#printf "${TAR_ENABLE_978:=no}" > /var/run/s6/container_environment/ENABLE_978
+#printf "${TAR_URL_978:=http://127.0.0.1/skyaware978}" > /var/run/s6/container_environment/URL_978
+#printf "${TAR_PTRACKS:=8}" > /var/run/s6/container_environment/PTRACKS
+#printf "${TAR_INT_978:=1}" > /var/run/s6/container_environment/INT_978
+#printf "${TAR_PF_ENABLE:=0}" > /var/run/s6/container_environment/PF_ENABLE
+#printf "${TAR_PF_URL:=http://127.0.0.1:30053/ajax/aircraft}" > /var/run/s6/container_environment/PF_URL
+#printf "${TAR_COMPRESS_978:=0}" > /var/run/s6/container_environment/COMPRESS_978

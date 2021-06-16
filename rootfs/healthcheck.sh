@@ -64,4 +64,22 @@ else
 fi
 s6-svdt-clear /run/s6/services/timelapse1090
 
+GRAPHS_DEATHS=$(s6-svdt /run/s6/services/graphs1090 | grep -cv "exitcode 0")
+if [ "$GRAPHS_DEATHS" -ge 1 ]; then
+    echo "graphs1090 deaths: $GRAPHS_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "graphs1090 deaths: $GRAPHS_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/graphs1090
+
+COLLECTD_DEATHS=$(s6-svdt /run/s6/services/collectd | grep -cv "exitcode 0")
+if [ "$COLLECTD_DEATHS" -ge 1 ]; then
+    echo "collectd deaths: $COLLECTD_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "collectd deaths: $COLLECTD_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/collectd
+
 exit $EXITCODE

@@ -3,11 +3,12 @@
 
 # Move timelapse1090 out of /run, and symlink back to /run
 ln -snf /var/timelapse1090 /run/timelapse1090 || true
+
 {
   echo "SOURCE=/run/readsb"
-  echo "INTERVAL=10"
-  echo "HISTORY=24"
-  echo "CHUNK_SIZE=240"
+  echo "INTERVAL=${TIME_INTERVAL:=10}"
+  echo "HISTORY=${TIME_HISTORY:=24}"
+  echo "CHUNK_SIZE=${TIME_CHUNK_SIZE:=240}"
 } > /etc/default/timelapse1090
 
 /usr/local/share/timelapse1090/timelapse1090.sh \

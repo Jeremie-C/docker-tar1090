@@ -2,6 +2,7 @@ server {
   listen 80 default_server;
   root /var/www/html;
   server_name _;
+  rewrite ^([^.]*[^/])$ $1/ permanent;
   include /usr/local/share/tar1090/nginx.conf;
 
   # Timelapse 
@@ -25,4 +26,7 @@ server {
       add_header Cache-Control "public, max-age=0";
     }
   }
+
+  include /usr/local/share/graphs1090/nginx-graphs1090.conf;
+
 }
