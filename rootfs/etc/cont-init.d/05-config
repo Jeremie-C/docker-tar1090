@@ -10,10 +10,10 @@ sed -i \
   -e "s/__cache_version__/$(date +%s | tail -c5)/g" /usr/local/share/graphs1090/html/index.html
 
 # TAR1090 ENV VARS
-printf "${TAR_INTERVAL:=8}" > /var/run/s6/container_environment/INTERVAL
-printf "${TAR_HISTORY_SIZE:=450}" > /var/run/s6/container_environment/HISTORY_SIZE
-printf "${TAR_CHUNK_SIZE:=20}" > /var/run/s6/container_environment/CHUNK_SIZE
-printf "${TAR_GZIP_LVL:=3}" > /var/run/s6/container_environment/GZIP_LVL
+printf "%s" "${TAR_INTERVAL:=8}" > /var/run/s6/container_environment/INTERVAL
+printf "%s" "${TAR_HISTORY_SIZE:=450}" > /var/run/s6/container_environment/HISTORY_SIZE
+printf "%s" "${TAR_CHUNK_SIZE:=20}" > /var/run/s6/container_environment/CHUNK_SIZE
+printf "%s" "${TAR_GZIP_LVL:=3}" > /var/run/s6/container_environment/GZIP_LVL
 
 #printf "${TAR_ENABLE_978:=no}" > /var/run/s6/container_environment/ENABLE_978
 #printf "${TAR_URL_978:=http://127.0.0.1/skyaware978}" > /var/run/s6/container_environment/URL_978
