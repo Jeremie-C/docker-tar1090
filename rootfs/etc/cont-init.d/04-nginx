@@ -5,6 +5,8 @@
 srcdir=/run/readsb
 service=readsb
 html_path=/usr/local/share/tar1090/html
+time_path=/usr/local/share/timelapse1090/html
+graph_path=/usr/local/share/graphs1090/html
 
 # Modify nginx.conf
 sed -i.original \
@@ -77,3 +79,13 @@ sed -i \
     -e "s/script.js/script_$TAR_VERSION.js/" \
     -e "s/style.css/style_$TAR_VERSION.css/" \
     "$html_path/index.html"
+
+# Timelapse1090 
+# Update in index.html
+sed -i -e "s/timelapse1090 on github/timelapse1090 on github ($(date +%y%m%d))/" \
+  "$time_path/index.html"
+
+# Timelapse1090 
+# Update in index.html
+sed -i -e "s/graphs1090 on github/graphs1090 on github ($(date +%y%m%d))/" \
+  "$graph_path/index.html"

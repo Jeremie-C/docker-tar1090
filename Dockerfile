@@ -14,7 +14,7 @@ RUN apt-get update && apt-get upgrade -y && \
   apt-get install -y --no-install-recommends \
   # Required always
   net-tools jq bc rrdtool collectd-core \
-  ca-certificates wget git libpython3.7-minimal \
+  ca-certificates wget git libpython2.7 \
   nginx-light p7zip-full && \
   # S6 OVERLAY
   chmod +x /scripts/s6-overlay.sh && \
@@ -44,15 +44,11 @@ RUN  apt-get update && \
   popd && \
   apt-get remove -y build-essential libncurses-dev zlib1g-dev && \
   apt-get autoremove -y && \
-  rm -rf  /src /var/lib/apt/lists/*  && \
-  mkdir -p /var/timelapse1090 && \
-  mkdir -p /var/globe_history && \
-  mkdir -p /var/lib/collectd/rrd/localhost/dump1090-localhost/
+  rm -rf  /src /var/lib/apt/lists/*
 
 ENTRYPOINT [ "/init" ]
-
 EXPOSE 80/tcp
+VOLUME ["/opt/data/"]
 
 HEALTHCHECK --start-period=120s --interval=300s CMD /healthcheck.sh
-
 LABEL maintainer="Jeremie-C <Jeremie-C@users.noreply.github.com>"

@@ -1,8 +1,6 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-mkdir -p /run/readsb
-
 # Build the readsb command line based on options
 READSB_BIN="/usr/bin/readsb"
 
@@ -27,8 +25,6 @@ READSB_CMD+=(--heatmap 13)
 READSB_CMD+=(--json-trace-interval 15)
 READSB_CMD+=(--json-reliable 1)
 READSB_CMD+=("--max-range=$READSB_MAX_RANGE")
-READSB_CMD+=("--net-bi-port=30004,30104")
-READSB_CMD+=(--net-json-port=30047)
 READSB_CMD+=(--forward-mlat)
 
 # shellcheck disable=SC2086

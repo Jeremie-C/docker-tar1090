@@ -16,7 +16,7 @@
   echo "font_size=${GRAPHS_FONT_SIZE:=10.0}"
   # set to 1 to draw a reference line at the maximum message rate
   echo "max_messages_line=${GRAPHS_MAX_MSG_LINE:=0}"
-  echo "DB=/var/lib/collectd/rrd"
+  echo "DB=/opt/data/rrd"
 } > /etc/default/graphs1090
 
 /usr/local/share/graphs1090/service-graphs1090.sh \
