@@ -85,7 +85,9 @@ sed -i \
 sed -i -e "s/timelapse1090 on github/timelapse1090 on github ($(date +%y%m%d))/" \
   "$time_path/index.html"
 
-# Timelapse1090 
+# Graphs1090 
 # Update in index.html
 sed -i -e "s/graphs1090 on github/graphs1090 on github ($(date +%y%m%d))/" \
+  "$graph_path/index.html"
+sed -i -e "s/__cache_version__/$(date +%s | tail -c5)/g" \
   "$graph_path/index.html"

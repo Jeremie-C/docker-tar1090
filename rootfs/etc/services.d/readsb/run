@@ -20,11 +20,12 @@ if [ -n "${BEAST_HOST}" ]; then
 fi
 
 READSB_CMD+=(--write-json=/run/readsb)
-READSB_CMD+=(--heatmap-dir /var/globe_history)
-READSB_CMD+=(--heatmap 13)
-READSB_CMD+=(--json-trace-interval 15)
-READSB_CMD+=(--json-reliable 1)
-READSB_CMD+=("--max-range=$READSB_MAX_RANGE")
+READSB_CMD+=(--heatmap-dir=/var/globe_history)
+READSB_CMD+=(--heatmap=10)
+READSB_CMD+=(--json-trace-interval=15)
+READSB_CMD+=(--json-reliable=1)
+READSB_CMD+=(--max-range=500)
+READSB_CMD+=(--mode-ac)
 READSB_CMD+=(--forward-mlat)
 
 # shellcheck disable=SC2086

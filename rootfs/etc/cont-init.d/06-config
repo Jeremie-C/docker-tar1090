@@ -1,14 +1,6 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-# Graphs1090
-sed -i \
-  -e 's/XFF.*/XFF 0.8/' /usr/local/share/graphs1090/collectd.conf
-ln -snf /usr/local/share/graphs1090/collectd.conf /etc/collectd/collectd.conf
-
-sed -i \
-  -e "s/__cache_version__/$(date +%s | tail -c5)/g" /usr/local/share/graphs1090/html/index.html
-
 # TAR1090 ENV VARS
 printf "%s" "${TAR_INTERVAL:=8}" > /var/run/s6/container_environment/INTERVAL
 printf "%s" "${TAR_HISTORY_SIZE:=450}" > /var/run/s6/container_environment/HISTORY_SIZE

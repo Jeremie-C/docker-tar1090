@@ -24,6 +24,8 @@ RUN apt-get update && apt-get upgrade -y && \
   rm -f /etc/nginx/sites-enabled/default && \
   mv -v /scripts/nginx.conf /etc/nginx/nginx.conf && \
   mv -v /scripts/tar1090 /etc/nginx/sites-enabled/tar1090 && \
+  mkdir -p /srv/nginx/ && \
+  mv -v /scripts/timelapse1090.conf /srv/nginx/timelapse1090.conf && \
   # Nettoyage
   rm -rf /scripts /var/lib/apt/lists/* && \
   # Healthcheck

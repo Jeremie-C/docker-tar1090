@@ -26,6 +26,12 @@ cp -R html /usr/local/share/timelapse1090
 cp timelapse1090.sh /usr/local/share/timelapse1090
 cp LICENSE /usr/local/share/timelapse1090
 cp README.md /usr/local/share/timelapse1090
+# Config helper
+cp html/config.js /usr/local/share/timelapse1090/html/default.js
+JS_VERSION=$(sed -n -e 's|.*config.js?v=v\(.*\)">.*|\1|p' /usr/local/share/timelapse1090/html/index.html)
+sed -i \
+  -e "/.*<title>.*/i \t \t <script type=\"text/javascript\" src=\"default.js?v=v${JS_VERSION}\"></script>" \
+  /usr/local/share/timelapse1090/html/index.html
 
 # Remove old graph1090
 rm -rf /usr/local/share/graphs1090 > /dev/null 2>&1 || true
@@ -46,3 +52,5 @@ cp collectd.conf /usr/local/share/graphs1090
 cp nginx-graphs1090.conf /usr/local/share/graphs1090
 cp LICENSE /usr/local/share/graphs1090
 cp README.md /usr/local/share/graphs1090
+ln -snf /usr/local/share/graphs1090/collectd.conf /etc/collectd/collectd.conf
+sed -i -e 's/XFF.*/XFF 0.8/' /etc/collectd/collectd.conf

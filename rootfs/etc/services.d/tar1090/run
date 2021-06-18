@@ -4,7 +4,7 @@
 sleep 5
 
 srcdir=/opt/data/readsb
-service=readsb
+service=tar1090
 
 /usr/local/share/tar1090/tar1090.sh \
   "/run/$service" \
