@@ -1,6 +1,10 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
+sed -i -e \
+  "/^[ \t]*<tr id='adsbexchange_header'.*/i<tr class=\"infoblock_row\"><td style=\"text-align: center\"><div><a class=\"largeText\" href=\"/timelapse1090/\">Timelapse</a> | <a class=\"largeText\" href=\"/graphs1090/\">Graphs</a></div></td></tr>\n" \
+  "/usr/local/share/tar1090/html/index.html"
+
 # TAR1090 ENV VARS
 printf "%s" "${TAR_INTERVAL:=8}" > /var/run/s6/container_environment/INTERVAL
 printf "%s" "${TAR_HISTORY_SIZE:=450}" > /var/run/s6/container_environment/HISTORY_SIZE
