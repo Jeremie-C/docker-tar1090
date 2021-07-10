@@ -2,11 +2,9 @@
 # shellcheck shell=bash
 
 # Readsb
-mkdir -p /opt/data/readsb
-ln -snf /opt/data/readsb /run/readsb || true
-
-mkdir -p /opt/data/globe_history
-ln -snf /opt/data/globe_history /var/globe_history || true
+mkdir -p /var/readsb/readsb
+mkdir -p /var/readsb/globe_history
+ln -snf /var/readsb/globe_history /var/globe_history || true
 
 # Tar1090
 mkdir -p /opt/data/tar1090

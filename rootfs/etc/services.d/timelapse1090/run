@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 
 {
-  echo "SOURCE=/opt/data/readsb"
+  echo "SOURCE=/var/readsb/readsb"
   echo "INTERVAL=${TIME_INTERVAL:=10}"
   echo "HISTORY=${TIME_HISTORY:=24}"
   echo "CHUNK_SIZE=${TIME_CHUNK_SIZE:=240}"
