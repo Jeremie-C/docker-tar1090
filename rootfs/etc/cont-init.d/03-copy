@@ -15,6 +15,8 @@ cp LICENSE /usr/local/share/tar1090
 cp README.md /usr/local/share/tar1090
 # Copy database
 cp -R /srv/tar1090-db/db /usr/local/share/tar1090/html
+# Config helper
+truncate -s 0 /usr/local/share/tar1090/html/config.js
 
 # Remove old timelapse1090
 rm -rf /usr/local/share/timelapse1090 > /dev/null 2>&1 || true
@@ -31,7 +33,7 @@ truncate -s 0 /usr/local/share/timelapse1090/html/config.js
 cp html/config.js /usr/local/share/timelapse1090/html/default.js
 JS_VERSION=$(sed -n -e 's|.*config.js?v=v\(.*\)">.*|\1|p' /usr/local/share/timelapse1090/html/index.html)
 sed -i -e \
-  "/.*<title>.*/i \t \t <script type=\"text/javascript\" src=\"default.js?v=v${JS_VERSION}\"></script>" \
+  "/.*<title>.*/i<script type=\"text/javascript\" src=\"default.js?v=v${JS_VERSION}\"></script>" \
   /usr/local/share/timelapse1090/html/index.html
 
 # Remove old graph1090

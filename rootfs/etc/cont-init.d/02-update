@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 
 cd /srv/tar1090 || exit 1
-if [ "${UPDATE_TAR}" = "true" ]; then 
+if [ "${UPDATE_TAR}" == "true" ]; then 
 	# Attempt to update tar1090
 	git fetch origin master > /dev/null 2>&1 || exit 0
 	git reset --hard origin/master > /dev/null 2>&1 || exit 0
@@ -13,7 +13,7 @@ echo "[tar1090] version: ${TAR_VERSION}"
 printf "%s" "$TAR_VERSION" > /var/run/s6/container_environment/TAR_VERSION
 
 cd /srv/tar1090-db || exit 1
-if [ "${UPDATE_TAR}" = "true" ]; then 
+if [ "${UPDATE_TAR}" == "true" ]; then 
 	# Attempt to update tar1090 database
 	git fetch --depth 1 origin master > /dev/null 2>&1 || exit 0
 	git reset --hard origin/master > /dev/null 2>&1 || exit 0
@@ -24,7 +24,7 @@ echo "[tar1090] database version: ${DB_VERSION}"
 printf "%s" "$DB_VERSION" > /var/run/s6/container_environment/DB_VERSION
 
 cd /srv/timelapse1090 || exit 1
-if [ "${UPDATE_TIME}" = "true" ]; then 
+if [ "${UPDATE_TIME}" == "true" ]; then 
 	# Attempt to update timelapse1090
 	git fetch origin master > /dev/null 2>&1 || exit 0
 	git reset --hard origin/master > /dev/null 2>&1 || exit 0
@@ -34,7 +34,7 @@ TIME_VERSION=$(git rev-parse --short HEAD)
 echo "[timelapse1090] version: ${TIME_VERSION}"
 
 cd /srv/graphs1090 || exit 1
-if [ "${UPDATE_GRAPH}" = "true" ]; then 
+if [ "${UPDATE_GRAPH}" == "true" ]; then 
 	# Attempt to update graph1090
 	git fetch origin master > /dev/null 2>&1 || exit 0
 	git reset --hard origin/master > /dev/null 2>&1 || exit 0

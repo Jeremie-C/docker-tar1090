@@ -15,6 +15,7 @@ sed -i.original \
   -e "s?/INSTANCE/?/?g" \
   -e "s?/INSTANCE?/?g" \
   -e "s?HTMLPATH?$html_path?g" \
+  -e "s?alias /run/$service/?alias $srcdir?g" \
   /usr/local/share/tar1090/nginx.conf
 
 sed -i '/location \/data\/ {/a \ \ access_log off;' \
@@ -37,11 +38,6 @@ echo "{ \"tar1090Version\": \"$TAR_VERSION\", \"databaseVersion\": \"$DB_VERSION
 # Update in index.html
 sed -i -e "s/tar1090 on github/tar1090 on github ($(date +%y%m%d))/" \
   "$html_path/index.html"
-#  <tr class="infoblock_heading">
-#    <td style="text-align: right" class=link>
-#      <a href="https://github.com/wiedehopf/tar1090#tar1090" id="dump1090_version" target="_blank">tar1090 on github</a>
-#    </td>
-#  </tr>
 
 # Rename Files
 mv "$html_path/dbloader.js" "$html_path/dbloader_$TAR_VERSION.js"

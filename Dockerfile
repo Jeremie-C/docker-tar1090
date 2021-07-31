@@ -1,7 +1,6 @@
 FROM debian:buster-slim
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
-  BEAST_PORT=30005 \
   UPDATE_TAR="true" \
   UPDATE_TIME="true" \
   UPDATE_GRAPH="true"
