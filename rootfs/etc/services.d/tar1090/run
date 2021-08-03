@@ -1,6 +1,22 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
+{
+  echo "INTERVAL=${TAR_INTERVAL:=8}"
+  echo "HISTORY_SIZE=${TAR_HISTORY_SIZE:=450}"
+  echo "GZIP_LVL=${TAR_GZIP_LVL:=3}"
+  echo "PTRACKS=${TAR_PTRACKS:=8}"
+  echo "CHUNK_SIZE=${TIME_CHUNK_SIZE:=20}"
+  
+  echo "ENABLE_978=no"
+  echo "URL_978=\"\""
+  echo "INT_978=0"
+  echo "COMPRESS_978=\"\""
+  
+  echo "PF_ENABLE=0"
+  echo "PF_URL=\"\""
+} > /etc/default/tar1090
+
 sleep 5
 
 srcdir=/var/readsb/readsb

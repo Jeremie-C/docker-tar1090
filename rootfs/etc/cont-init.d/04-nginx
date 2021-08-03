@@ -3,7 +3,7 @@
 
 # Modify nginx.conf
 srcdir=/var/readsb/readsb
-service=readsb
+service=tar1090
 html_path=/usr/local/share/tar1090/html
 time_path=/usr/local/share/timelapse1090/html
 graph_path=/usr/local/share/graphs1090/html
@@ -15,7 +15,6 @@ sed -i.original \
   -e "s?/INSTANCE/?/?g" \
   -e "s?/INSTANCE?/?g" \
   -e "s?HTMLPATH?$html_path?g" \
-  -e "s?alias /run/$service/?alias $srcdir?g" \
   /usr/local/share/tar1090/nginx.conf
 
 sed -i '/location \/data\/ {/a \ \ access_log off;' \

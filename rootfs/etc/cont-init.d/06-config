@@ -5,42 +5,62 @@ sed -i -e "/^[ \t]*<body.*/a<div class=\"infoBlockTitleText link\" style=\"text-
 sed -i -e "/^[ \t]*<body.*/a<div class=\"infoBlockTitleText link\" style=\"text-align: center\"><a href=\"/\">Tar1090</a> | <a href=\"/graphs1090/\">Graphs1090</a></div>\n" /usr/local/share/timelapse1090/html/index.html
 sed -i -e "/^[ \t]*<body.*/a<div class=\"infoBlockTitleText link\" style=\"text-align: center\"><a href=\"/\">Tar1090</a> | <a href=\"/timelapse1090/\">Timelapse1090</a></div>\n" /usr/local/share/graphs1090/html/index.html
 
-# TAR1090 ENV VARS
-printf "%s" "${TAR_INTERVAL:=8}" > /var/run/s6/container_environment/INTERVAL
-printf "%s" "${TAR_HISTORY_SIZE:=450}" > /var/run/s6/container_environment/HISTORY_SIZE
-printf "%s" "${TAR_GZIP_LVL:=3}" > /var/run/s6/container_environment/GZIP_LVL
-printf "%s" "${TAR_PTRACKS:=8}" > /var/run/s6/container_environment/PTRACKS
-printf "%s" "${TAR_CHUNK_SIZE:=20}" > /var/run/s6/container_environment/CHUNK_SIZE
-
-# TAR1090 JS VARS 
+## TAR1090 JS VARS
 if [[ -n "$TAR_TITLE" ]]; then
-  printf "%s" "PageName = ${TAR_TITLE};" > /usr/local/share/tar1090/html/config.js
+  printf "%s" "PageName = \"${TAR_TITLE}\";" >> /usr/local/share/tar1090/html/config.js
 fi
+if [[ -n "$TAR_MAPTYPE" ]]; then
+  printf "%s" "MapType_tar1090 = \"${TAR_MAPTYPE}\";" >> /usr/local/share/tar1090/html/config.js
+fi
+if [[ -n "$TAR_RANGE_COLOR" ]]; then
+  printf "%s" "actual_range_outline_color = \"${TAR_RANGE_COLOR}\";" >> /usr/local/share/tar1090/html/config.js
+fi
+if [[ -n "$TAR_RANGE_WIDTH" ]]; then
+  printf "%s" "actual_range_outline_width = ${TAR_RANGE_WIDTH};" >> /usr/local/share/tar1090/html/config.js
+fi
+if [[ -n "$TAR_RANGE_LINE" ]]; then
+  printf "%s" "actual_range_outline_dash = ${TAR_RANGE_LINE};" >> /usr/local/share/tar1090/html/config.js
+fi
+
+## TAR1090 / Timelapse1090 JS VARS
 if [[ -n "$TAR_NBPLANEINTITLE" ]]; then
-  printf "%s" "PlaneCountInTitle = ${TAR_NBPLANEINTITLE};" > /usr/local/share/tar1090/html/config.js
+  printf "%s" "PlaneCountInTitle = ${TAR_NBPLANEINTITLE};" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "PlaneCountInTitle = ${TAR_NBPLANEINTITLE};" >> /usr/local/share/timelapse1090/html/config.js
 fi
 if [[ -n "$TAR_MSGRATEINTITLE" ]]; then
-  printf "%s" "MessageRateInTitle = ${TAR_MSGRATEINTITLE};" > /usr/local/share/tar1090/html/config.js
+  printf "%s" "MessageRateInTitle = ${TAR_MSGRATEINTITLE};" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "MessageRateInTitle = ${TAR_MSGRATEINTITLE};" >> /usr/local/share/timelapse1090/html/config.js
 fi
 if [[ -n "$TAR_UNITS" ]]; then
-  printf "%s" "DisplayUnits = ${TAR_UNITS};" > /usr/local/share/tar1090/html/config.js
+  printf "%s" "DisplayUnits = \"${TAR_UNITS}\";" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "DisplayUnits = \"${TAR_UNITS}\";" >> /usr/local/share/timelapse1090/html/config.js
 fi
-
-
-
+if [[ -n "$TAR_ZOOMLVL" ]]; then
+  printf "%s" "DefaultZoomLvl = ${TAR_ZOOMLVL};" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "DefaultZoomLvl = ${TAR_ZOOMLVL};" >> /usr/local/share/timelapse1090/html/config.js
+fi
+if [[ -n "$TAR_SITESHOW" ]]; then
+  printf "%s" "SiteShow = ${TAR_SITESHOW};" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "SiteShow = ${TAR_SITESHOW};" >> /usr/local/share/timelapse1090/html/config.js
+fi
+if [[ -n "$TAR_SITENAME" ]]; then
+  printf "%s" "SiteName = \"${TAR_SITENAME}\";" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "SiteName = \"${TAR_SITENAME}\";" >> /usr/local/share/timelapse1090/html/config.js
+fi
+if [[ -n "$TAR_RANGERINGS" ]]; then
+  printf "%s" "SiteCircles = ${TAR_RANGERINGS};" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "SiteCircles = ${TAR_RANGERINGS};" >> /usr/local/share/timelapse1090/html/config.js
+fi
+if [[ -n "$TAR_RANGERINGSDIST" ]]; then
+  printf "%s" "SiteCirclesDistances = new array(${TAR_RANGERINGSDIST});" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "SiteCirclesDistances = new array(${TAR_RANGERINGSDIST});" >> /usr/local/share/timelapse1090/html/config.js
+fi
+if [[ -n "$TAR_SHOWFLAGS" ]]; then
+  printf "%s" "ShowFlags = ${TAR_SHOWFLAGS};" >> /usr/local/share/tar1090/html/config.js
+  printf "%s" "ShowFlags = ${TAR_SHOWFLAGS};" >> /usr/local/share/timelapse1090/html/config.js
+fi
 
 # TIMELAPSE1090 JS VARS
-if [[ -n "$TAR_NBPLANEINTITLE" ]]; then
-  printf "%s" "PlaneCountInTitle = ${TAR_NBPLANEINTITLE};" > /usr/local/share/timelapse1090/html/config.js
+if [[ -n "$TIMELAPSE_TITLE" ]]; then
+  printf "%s" "PageName = \"${TIMELAPSE_TITLE}\";" >> /usr/local/share/timelapse1090/html/config.js
 fi
-if [[ -n "$TAR_MSGRATEINTITLE" ]]; then
-  printf "%s" "MessageRateInTitle = ${TAR_MSGRATEINTITLE};" > /usr/local/share/timelapse1090/html/config.js
-fi
-if [[ -n "$TAR_UNITS" ]]; then
-  printf "%s" "DisplayUnits = ${TAR_UNITS};" > /usr/local/share/timelapse1090/html/config.js
-fi
-
-
-
-#printf "${TAR_PF_ENABLE:=0}" > /var/run/s6/container_environment/PF_ENABLE
-#printf "${TAR_PF_URL:=http://127.0.0.1:30053/ajax/aircraft}" > /var/run/s6/container_environment/PF_URL

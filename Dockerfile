@@ -38,7 +38,7 @@ RUN apt-get update && apt-get upgrade -y && \
 
 ENTRYPOINT [ "/init" ]
 EXPOSE 80/tcp
-VOLUME ["/var/readsb/","/opt/data/"]
+VOLUME ["/var/readsb/","/data/"]
 
 HEALTHCHECK --start-period=120s --interval=300s CMD /healthcheck.sh
 LABEL maintainer="Jeremie-C <Jeremie-C@users.noreply.github.com>"

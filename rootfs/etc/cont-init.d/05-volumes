@@ -7,21 +7,21 @@ mkdir -p /var/readsb/globe_history
 ln -snf /var/readsb/globe_history /var/globe_history || true
 
 # Tar1090
-mkdir -p /opt/data/tar1090
-ln -snf /opt/data/tar1090 /run/tar1090 || true
+mkdir -p /data/tar1090
+ln -snf /data/tar1090 /run/tar1090 || true
 
 # Timelapse1090
-mkdir -p /opt/data/timelapse1090
-ln -snf /opt/data/timelapse1090 /run/timelapse1090 || true
+mkdir -p /data/timelapse1090
+ln -snf /data/timelapse1090 /run/timelapse1090 || true
 
 # Graphs1090 
-mkdir -p /opt/data/graphs1090
-ln -snf /opt/data/graphs1090 /run/graphs1090 || true
+mkdir -p /data/graphs1090
+ln -snf /data/graphs1090 /run/graphs1090 || true
 
 mkdir -p /usr/share/graphs1090/data-symlink
 ln -snf /var/readsb/readsb /usr/share/graphs1090/data-symlink/data
 sed -i -e 's?URL .*?URL "file:///usr/share/graphs1090/data-symlink"?' /etc/collectd/collectd.conf
 
 # Collectd
-mkdir -p /opt/data/rrd/localhost/dump1090-localhost
-ln -snf /opt/data/rrd /var/lib/collectd/rrd || true
+mkdir -p /data/rrd/localhost/dump1090-localhost
+ln -snf /data/rrd /var/lib/collectd/rrd || true
