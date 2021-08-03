@@ -1,5 +1,12 @@
 # docker-tar1090
+
 <!-- markdownlint-disable-file MD013 -->
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/jeremiec82/tar1090?style=plastic)
+![Docker Pulls](https://img.shields.io/docker/pulls/jeremiec82/tar1090?style=plastic)
+[![Deploy to Docker Hub](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/deploy.yml/badge.svg)](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/deploy.yml)
+[![Check Code](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/check_code.yml/badge.svg)](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/check_code.yml)
+[![Docker Build](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/test_build.yml/badge.svg)](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/test_build.yml)
+
 Tar1090, Timelapse1090 and Graph1090 running in a docker container.
 
 This container is intended to be used whith my readsb repository.
@@ -69,8 +76,7 @@ To get that theoretical range for a location, follow the guide.
 2. Click "New Panorama"
 3. Set the location for your antenna precisely.
 4. Enter a title / submit the request and wait for it to finish.
-5. Near the top of the page, an URL for the panorama is mentioned.  
-www.heywhatsthat.com/?view=**XXXXXXXX**
+5. Near the top of the page, an URL for the panorama is mentioned. www.heywhatsthat.com/?view=**XXXXXXXX**
 6. Replace the XXXXXX with the ID contained in your panorama URL.
 7. Set the Environment Variabe to active this feature
 
