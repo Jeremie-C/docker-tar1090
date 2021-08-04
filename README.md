@@ -1,6 +1,5 @@
 # docker-tar1090
 
-<!-- markdownlint-disable-file MD013 -->
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/jeremiec82/tar1090?style=plastic)
 ![Docker Pulls](https://img.shields.io/docker/pulls/jeremiec82/tar1090?style=plastic)
 [![Deploy to Docker Hub](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/deploy.yml/badge.svg)](https://github.com/Jeremie-C/docker-tar1090/actions/workflows/deploy.yml)
