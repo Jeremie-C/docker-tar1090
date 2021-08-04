@@ -30,7 +30,7 @@ fi
 
 # shellcheck disable=SC2126
 NGINX_DEATHS=$(s6-svdt /run/s6/services/nginx | grep -v "exitcode 0" | wc -l)
-if [ "$HTTPD_DEATHS" -ge 1 ]; then
+if [ "$NGINX_DEATHS" -ge 1 ]; then
     echo "nginx deaths: $NGINX_DEATHS. UNHEALTHY"
     EXITCODE=1
 else
