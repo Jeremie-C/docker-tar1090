@@ -2,9 +2,9 @@
 set -e
 EXITCODE=0
 
-if [ -f "/run/readsb/aircraft.json" ]; then
+if [ -f "/var/readsb/readsb/aircraft.json" ]; then
   # get latest timestamp of readsb json update
-  TIMESTAMP_LAST_READSB_UPDATE=$(jq '.now' < /run/readsb/aircraft.json)
+  TIMESTAMP_LAST_READSB_UPDATE=$(jq '.now' < /var/readsb/readsb/aircraft.json)
   # get current timestamp
   TIMESTAMP_NOW=$(date +"%s.%N")
   # makse sure readsb has updated json in past 60 seconds
@@ -16,7 +16,7 @@ if [ -f "/run/readsb/aircraft.json" ]; then
       echo "readsb last updated: ${TIMESTAMP_LAST_READSB_UPDATE}, now: ${TIMESTAMP_NOW}, delta: ${TIMEDELTA}. HEALTHY"
   fi
   # get number of aircraft
-  NUM_AIRCRAFT=$(jq '.aircraft | length' < /run/readsb/aircraft.json)
+  NUM_AIRCRAFT=$(jq '.aircraft | length' < /var/readsb/readsb/aircraft.json)
   if [ "$NUM_AIRCRAFT" -lt 1 ]; then
       echo "total aircraft: $NUM_AIRCRAFT. UNHEALTHY"
       EXITCODE=1
@@ -24,17 +24,58 @@ if [ -f "/run/readsb/aircraft.json" ]; then
       echo "total aircraft: $NUM_AIRCRAFT. HEALTHY"
   fi
 else
-  echo "ERROR: Cannot find /run/readsb/aircraft.json!"
+  echo "ERROR: Cannot find /var/readsb/readsb/aircraft.json !"
   EXITCODE=1
 fi
 
-READSB_DEATHS=$(s6-svdt /run/s6/services/readsb | grep -cv "exitcode 0")
-if [ "$READSB_DEATHS" -ge 1 ]; then
-    echo "readsb deaths: $READSB_DEATHS. UNHEALTHY"
+# shellcheck disable=SC2126
+NGINX_DEATHS=$(s6-svdt /run/s6/services/nginx | grep -v "exitcode 0" | wc -l)
+if [ "$NGINX_DEATHS" -ge 1 ]; then
+    echo "nginx deaths: $NGINX_DEATHS. UNHEALTHY"
     EXITCODE=1
 else
-    echo "readsb deaths: $READSB_DEATHS. HEALTHY"
+    echo "nginx deaths: $NGINX_DEATHS. HEALTHY"
 fi
-s6-svdt-clear /run/s6/services/readsb
+s6-svdt-clear /run/s6/services/nginx
+
+# shellcheck disable=SC2126
+TAR_DEATHS=$(s6-svdt /run/s6/services/tar1090 | grep -v "exitcode 0" | wc -l)
+if [ "$TAR_DEATHS" -ge 1 ]; then
+    echo "tar1090 deaths: $TAR_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "tar1090 deaths: $TAR_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/tar1090
+
+# shellcheck disable=SC2126
+TIME_DEATHS=$(s6-svdt /run/s6/services/timelapse1090 | grep -v "exitcode 0" | wc -l)
+if [ "$TIME_DEATHS" -ge 1 ]; then
+    echo "timelapse1090 deaths: $TIME_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "timelapse1090 deaths: $TIME_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/timelapse1090
+
+# shellcheck disable=SC2126
+GRAPHS_DEATHS=$(s6-svdt /run/s6/services/graphs1090 | grep -v "exitcode 0" | wc -l)
+if [ "$GRAPHS_DEATHS" -ge 1 ]; then
+    echo "graphs1090 deaths: $GRAPHS_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "graphs1090 deaths: $GRAPHS_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/graphs1090
+
+# shellcheck disable=SC2126
+COLLECTD_DEATHS=$(s6-svdt /run/s6/services/collectd | grep -v "exitcode 0" | wc -l)
+if [ "$COLLECTD_DEATHS" -ge 1 ]; then
+    echo "collectd deaths: $COLLECTD_DEATHS. UNHEALTHY"
+    EXITCODE=1
+else
+    echo "collectd deaths: $COLLECTD_DEATHS. HEALTHY"
+fi
+s6-svdt-clear /run/s6/services/collectd
 
 exit $EXITCODE

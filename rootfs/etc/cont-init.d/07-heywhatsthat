@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+if [[ -n "$HWT_PID" ]]; then
+  URL="http://www.heywhatsthat.com/api/upintheair.json?id=${HWT_PID}&refraction=0.25&alts="
+  # Meters to feet
+  if [ "$TAR_UNITS" == "metric" ]; then
+    URL="${URL}1800,3000,6000,9000,12000"
+  else
+    URL="${URL}1829,3048,6096,9144,12192"
+  fi
+  # Get File
+  echo "[tar1090] upintherair url: ${URL}"
+  wget -nv -O /usr/local/share/tar1090/html/upintheair.json "${URL}"
+  cp /usr/local/share/tar1090/html/upintheair.json /usr/local/share/timelapse1090/html/upintheair.json
+  # Applying configuration
+  if [[ -n "$HWT_RANGE_COLOR" ]]; then
+    printf "%s" "range_outline_color = \"${HWT_RANGE_COLOR}\";" >> /usr/local/share/tar1090/html/config.js
+  fi
+  if [[ -n "$HWT_RANGE_COLORBYALT" ]]; then
+    printf "%s" "range_outline_colored_by_altitude = ${HWT_RANGE_COLORBYALT};" >> /usr/local/share/tar1090/html/config.js
+  fi
+  if [[ -n "$HWT_RANGE_WIDTH" ]]; then
+    printf "%s" "range_outline_width = ${HWT_RANGE_WIDTH};" >> /usr/local/share/tar1090/html/config.js
+  fi
+  if [[ -n "$HWT_RANGE_LINE" ]]; then
+    printf "%s" "range_outline_dash = ${HWT_RANGE_LINE};" >> /usr/local/share/tar1090/html/config.js
+  fi
+fi

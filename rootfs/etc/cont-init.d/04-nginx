@@ -1,11 +1,29 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
 
-# Vars
+# Modify nginx.conf
+srcdir=/var/readsb/readsb
+service=tar1090
 html_path=/usr/local/share/tar1090/html
+time_path=/usr/local/share/timelapse1090/html
+graph_path=/usr/local/share/graphs1090/html
 
+# Modify nginx.conf
+sed -i.original \
+  -e "s?SOURCE_DIR?$srcdir?g" \
+  -e "s?SERVICE?$service?g" \
+  -e "s?/INSTANCE/?/?g" \
+  -e "s?/INSTANCE?/?g" \
+  -e "s?HTMLPATH?$html_path?g" \
+  /usr/local/share/tar1090/nginx.conf
+
+sed -i '/location \/data\/ {/a \ \ access_log off;' \
+  /usr/local/share/tar1090/nginx.conf
+
+# Bust Cache & GZIP
 # Rename database
 mv "$html_path/db" "/usr/local/share/tar1090/html/db-${DB_VERSION}"
+gzip -k -9 "$html_path/db-${DB_VERSION}/"*.js 
 
 # Update with renamed database path
 sed -i \
@@ -30,8 +48,22 @@ mv "$html_path/layers.js" "$html_path/layers_$TAR_VERSION.js"
 mv "$html_path/markers.js" "$html_path/markers_$TAR_VERSION.js"
 mv "$html_path/planeObject.js" "$html_path/planeObject_$TAR_VERSION.js"
 mv "$html_path/registrations.js" "$html_path/registrations_$TAR_VERSION.js"
-mv "$html_path/script.js" "script_$TAR_VERSION.js"
-mv "$html_path/style.css" "style_$TAR_VERSION.css"
+mv "$html_path/script.js" "$html_path/script_$TAR_VERSION.js"
+mv "$html_path/style.css" "$html_path/style_$TAR_VERSION.css"
+
+# GZIP Files
+gzip -k -9 "$html_path/dbloader_$TAR_VERSION.js"
+gzip -k -9 "$html_path/defaults_$TAR_VERSION.js"
+gzip -k -9 "$html_path/early_$TAR_VERSION.js"
+gzip -k -9 "$html_path/flags_$TAR_VERSION.js"
+gzip -k -9 "$html_path/formatter_$TAR_VERSION.js"
+gzip -k -9 "$html_path/layers_$TAR_VERSION.js"
+gzip -k -9 "$html_path/markers_$TAR_VERSION.js"
+gzip -k -9 "$html_path/planeObject_$TAR_VERSION.js"
+gzip -k -9 "$html_path/registrations_$TAR_VERSION.js"
+gzip -k -9 "$html_path/script_$TAR_VERSION.js"
+gzip -k -9 "$html_path/style_$TAR_VERSION.css"
+gzip -k -9 "$html_path/libs/"*.js
 
 # Update in index
 sed -i \
@@ -47,3 +79,15 @@ sed -i \
     -e "s/script.js/script_$TAR_VERSION.js/" \
     -e "s/style.css/style_$TAR_VERSION.css/" \
     "$html_path/index.html"
+
+# Timelapse1090 
+# Update in index.html
+sed -i -e "s/timelapse1090 on github/timelapse1090 on github ($(date +%y%m%d))/" \
+  "$time_path/index.html"
+
+# Graphs1090 
+# Update in index.html
+sed -i -e "s/graphs1090 on github/graphs1090 on github ($(date +%y%m%d))/" \
+  "$graph_path/index.html"
+sed -i -e "s/__cache_version__/$(date +%s | tail -c5)/g" \
+  "$graph_path/index.html"

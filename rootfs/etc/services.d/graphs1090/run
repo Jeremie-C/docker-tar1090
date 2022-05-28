@@ -1,0 +1,23 @@
+#!/usr/bin/with-contenv bash
+#shellcheck shell=bash
+
+{
+  # 1 to enable farenheit instead of celsius
+  echo "farenheit=${GRAPHS_FARENHEIT:=0}"
+  # nautical, statute, or metric
+  echo "range=${GRAPHS_RANGE:=nautical}"
+  # leftaxis, nautical, statute, metric
+  echo "range2=${GRAPHS_RANGE2:=leftaxis}"
+  # small, default, large, huge
+  echo "graph_size=${GRAPHS_SIZE:=default}"
+  # make the small graphs as large as the big ones
+  echo "all_large=${GRAPHS_ALL_LARGE:=no}"
+  # default 10.0
+  echo "font_size=${GRAPHS_FONT_SIZE:=10.0}"
+  # set to 1 to draw a reference line at the maximum message rate
+  echo "max_messages_line=${GRAPHS_MAX_MSG_LINE:=0}"
+  echo "DB=/data/rrd"
+} > /etc/default/graphs1090
+
+/usr/local/share/graphs1090/service-graphs1090.sh \
+  2>&1 | mawk -W Interactive '{print "[graphs1090] " $0}'

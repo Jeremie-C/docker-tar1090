@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv sh
+#shellcheck shell=sh
+
+mkdir -p /var/log/nginx
+
+exec /usr/sbin/nginx 2>&1 | mawk -W interactive '{print "[nginx] " $0}'

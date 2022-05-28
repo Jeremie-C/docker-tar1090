@@ -1,7 +1,0 @@
-#!/usr/bin/with-contenv sh
-#shellcheck shell=sh
-
-mkdir -p /var/log/lighttpd
-
-exec \
-  /usr/sbin/lighttpd -D -f /etc/lighttpd/lighttpd.conf 2>&1 | mawk -W interactive '{print "[lighttpd] " $0}'

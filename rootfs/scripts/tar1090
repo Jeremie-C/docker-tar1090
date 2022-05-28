@@ -1,0 +1,12 @@
+server {
+  listen 80 default_server;
+  root /var/www/html;
+  server_name _;
+
+  # Timelapse
+  include /srv/nginx/timelapse1090.conf;
+  # Graphs
+  include /usr/local/share/graphs1090/nginx-graphs1090.conf;
+  # Tar1090
+  include /usr/local/share/tar1090/nginx.conf;
+}

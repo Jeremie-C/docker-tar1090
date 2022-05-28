@@ -1,0 +1,4 @@
+#!/usr/bin/execlineb -S0
+# shellcheck shell=bash
+
+s6-svc -d /var/run/s6/services/tar1090
