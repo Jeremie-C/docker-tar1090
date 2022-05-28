@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
   UPDATE_TAR="true" \

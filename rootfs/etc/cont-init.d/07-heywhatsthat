@@ -12,6 +12,7 @@ if [[ -n "$HWT_PID" ]]; then
   # Get File
   echo "[tar1090] upintherair url: ${URL}"
   wget -nv -O /usr/local/share/tar1090/html/upintheair.json "${URL}"
+  cp /usr/local/share/tar1090/html/upintheair.json /usr/local/share/timelapse1090/html/upintheair.json
   # Applying configuration
   if [[ -n "$HWT_RANGE_COLOR" ]]; then
     printf "%s" "range_outline_color = \"${HWT_RANGE_COLOR}\";" >> /usr/local/share/tar1090/html/config.js
